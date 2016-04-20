@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName"
+>
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <!-- 配置依赖的数据源 -->
+        <property name="dataSource">
+            <ref bean="dataSource" />
+        </property>
+
+        <property name="hibernateProperties">
+            <props>
+                <!-- 设置方言 -->
+                <prop key="hibe
+                rnate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <!--设置是否打印sql语句 -->
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="format_sql">true</prop>
+                <!--设置是否根据配置文件自动生成表格 -->
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <!-- <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop> -->
+                <prop key="hibernate.current_session_context_class">thread</prop>
+            </props>
+        </property>
+
+        <property name="packagesToScan">
+            <list>
+                <!-- 配置带包名的某张表和对应bean的映射文件，下面是一个参考写法 -->
+                <value>com.appserver.model</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <!-- 数据库链接 -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver">
+        </property>
+
+        <property name="url"
+                  value="jdbc:mysql://127.0.0.1:3306/Chick?characterEncoding=UTF-8"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="5523288q"></property>
+    </bean>
+
+    <!-- 会自动装配-->
+    <bean id="homeService" class="com.appserver.service.HomeServiceImp"></bean>
+    <bean id="managerService" class="com.appserver.service.ManagerServiceImp"></bean>
+    <bean id="menuDAO" class="com.appserver.dao.MenuDAOImp"></bean>
+    <bean id="goodsService" class="com.appserver.service.GoodsServiceImp"></bean>
+    <bean id="goodsDAO" class="com.appserver.dao.GoodsDAOImp"></bean>
+    <bean id="appDAO"  class="com.appserver.dao.AppSystemDataDAOImp"></bean>
+</beans>

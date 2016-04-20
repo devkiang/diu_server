@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.action.extension" value="do,action,in" />
+    <!-- 	<package name="struts2" extends="struts-default" namespace="/">
+            <action name="userAction_*" class="com.easy.dashboard.action.UserAction"
+                method="{1}">
+                <result name="userLogin">/user.jsp</result>
+                <result name="error">/error.jsp</result>
+            </action>
+
+        </package> -->
+
+    <package name="json" extends="json-default" namespace="/">
+
+        <action name="appAction" class="com.appserver.action.AppRequestAction"
+                method="appRequest">
+            <result type="json">
+                <param name="root">responseMap</param>
+            </result>
+        </action>
+
+    </package>
+</struts>
